@@ -10,13 +10,15 @@ int main() {
     // load file
     std::string content =
     "; this is a comment\n"
-    "[test]\r\n"
-    "number=123\n"
+    "[test\t]\r\n"
+    "number = 123\n"
     " \tstring=hello world\r";
 
     // load content
     mINI ini;
     bool ok = ini.load( content );
+
+    std::cout << ini.save() << std::endl;
 
     // tests
     assert( ini["test.number"] == "123" );         // symbol value
@@ -66,8 +68,8 @@ int main() {
     // load file
     std::string content =
     "; this is a comment\n"
-    "[test]\r\n"
-    "number=123\n"
+    "[test\t]\r\n"
+    "number = 123\n"
     "string=hello world\r";
 
     // load content

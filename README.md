@@ -2,7 +2,7 @@ mINI :white_small_square: <a href="https://travis-ci.org/r-lyeh/mINI"><img src="
 ====
 
 - mINI is a minimal .INI reader/writer (C++11)
-- mINI is tiny (~70 LOC), cross-platform, self-contained and header-only.
+- mINI is tiny (~75 LOC), cross-platform, self-contained and header-only.
 - mINI is extendable (see [commented variant sample](sample.cc))
 - mINI is zlib/libpng licensed.
 
@@ -17,8 +17,8 @@ int main() {
     // load file
     std::string content =
     "; this is a comment\n"
-    "[test]\r\n"
-    "number=123\n"
+    "[test\t]\r\n"
+    "number = 123\n"
     " \tstring=hello world\r";
 
     // load content
@@ -60,5 +60,5 @@ mINI>
 ```
 
 ### Changelog
-- v1.0.0 (2015/09/18)
-  - Initial version
+- v1.0.1 (2016/04/28): Improve symbol trimming
+- v1.0.0 (2015/09/18): Initial version

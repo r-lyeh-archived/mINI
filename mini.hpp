@@ -7,7 +7,8 @@
 #include <map>
 #include <vector>
 
-#define MINI_VERSION "1.0.0" // (2015/09/18) Initial version
+#define MINI_VERSION "1.0.1" /* (2016/04/28) Improve symbol trimming
+#define MINI_VERSION "1.0.0" // (2015/09/18) Initial version */
 
 template<typename key, typename variant>
 struct mINI_basic : std::map< key, variant > {
@@ -22,16 +23,20 @@ struct mINI_basic : std::map< key, variant > {
         for( auto end = lines.size(), L = end - end; L < end; ++L ) {
             auto &line = lines[ L ];
             // trim blanks
-            while( line.size() && ( line.back()=='\t' || line.back()==' ' ) ) line.pop_back();
-            while( line.size() && ( line.front()=='\t' || line.front()==' ' ) ) line = line.substr(1);
+            auto trim = []( std::string line ) {
+                while( line.size() && ( line.back()=='\t' || line.back()==' ' ) ) line.pop_back();
+                while( line.size() && ( line.front()=='\t' || line.front()==' ' ) ) line = line.substr(1);
+                return line;
+            };
+            line = trim(line);
             // split line into tokens and parse tokens
             if( line.size() >= 3 && line.front() != ';' ) {
                 if( !( line.front() == '[' && line.back() == ']' )) {
                     for( auto at = line.find_first_of('='); at != std::string::npos; ) {
-                        numlines[ symbol = tag + "." + line.substr( 0, at ) ] = L + 1;
-                        (*this)[ symbol ] = line.substr( at + 1 ); break;
+                        numlines[ symbol = trim( tag + "." + line.substr( 0, at ) ) ] = L + 1;
+                        (*this)[ symbol ] = trim( line.substr( at + 1 ) ); break;
                     }
-                } else tag = line.substr(1, line.size() - 2);
+                } else tag = trim( line.substr(1, line.size() - 2) );
             }
             // std::cout << "L" << L << " " << line << std::endl; // debug
         }
