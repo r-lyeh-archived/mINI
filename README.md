@@ -1,10 +1,12 @@
 mINI :white_small_square: <a href="https://travis-ci.org/r-lyeh/mINI"><img src="https://api.travis-ci.org/r-lyeh/mINI.svg?branch=master" align="right" /></a>
 ====
 
-- mINI is a minimal .INI reader/writer (C++11)
-- mINI is tiny (~75 LOC), cross-platform, self-contained and header-only.
-- mINI is extendable (see [commented variant sample](sample.cc))
-- mINI is zlib/libpng licensed.
+- [x] mINI is a minimal .INI reader/writer (C++11)
+- [x] Basic usage around `std::map<key,value>` wrapper.
+- [x] Extendable, key/value types can be redefined (variant sample included).
+- [x] Relaxed spec supported: `key=value`, `key=`, and `key`.
+- [x] Tiny (~75 LOC), cross-platform, self-contained and header-only.
+- [x] Zlib/libpng licensed.
 
 ## Showcase
 ```c++
@@ -60,5 +62,8 @@ mINI>
 ```
 
 ### Changelog
+- v1.0.2 (2016/06/02): Allow relaxed spec parsing
+- v1.0.2 (2016/06/02): Renamed methods (load/save to parse/dump)
+- v1.0.2 (2016/06/02): Optional header/footer when dumping
 - v1.0.1 (2016/04/28): Improve symbol trimming
 - v1.0.0 (2015/09/18): Initial version
